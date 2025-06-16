@@ -1,0 +1,29 @@
+Revenue vs Average CF = 
+VAR CurrentYearMonth = MAX(dim_date[YearMonth])
+
+-- Current month revenue
+VAR CurrRevenue = 
+    CALCULATE(
+        SUM(fact_revenue[Revenue]),
+        dim_date[YearMonth] = CurrentYearMonth
+    )
+
+-- Total revenue in slicer-selected period
+VAR TotalRevenueSelected =
+    CALCULATE(
+        SUM(fact_revenue[Revenue]),
+        ALLSELECTED(dim_date)
+    )
+
+-- Count distinct YearMonth in slicer-selected period
+VAR UniqueMonthCount =
+    CALCULATE(
+        DISTINCTCOUNT(dim_date[YearMonth]),
+        ALLSELECTED(dim_date)
+    )
+
+-- Average revenue per month
+VAR AvgRevenue = DIVIDE(TotalRevenueSelected, UniqueMonthCount)
+
+-- Compare
+RETURN IF(CurrRevenue >= AvgRevenue, "#9BC98D", "#E57373")
