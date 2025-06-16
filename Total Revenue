@@ -1,0 +1,1 @@
+TotalRevenue = SUM(fact_revenue[Revenue])
