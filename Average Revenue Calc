@@ -1,0 +1,11 @@
+Average Revenue Calc = 
+VAR TotalRevenueInRange = CALCULATE(
+    [TotalRevenue], 
+    ALLSELECTED(dim_date)
+)
+VAR UniqueMonths = CALCULATE(
+    DISTINCTCOUNT(dim_date[month]), 
+    ALLSELECTED(dim_date)
+)
+RETURN 
+IF(UniqueMonths > 0, TotalRevenueInRange / UniqueMonths, BLANK())
