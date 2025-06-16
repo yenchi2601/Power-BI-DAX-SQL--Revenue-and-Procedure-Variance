@@ -1,0 +1,11 @@
+Monthly & Average Revenue = 
+VAR MinDate = MIN(dim_date[date_value])
+VAR MaxDate = MAX(dim_date[date_value])
+VAR TotalMonths = DATEDIFF(MinDate, MaxDate, MONTH) + 1
+VAR TotalRevenue = 
+    CALCULATE(
+        SUM(fact_revenue[Revenue]), 
+        dim_date[date_value] >= MinDate && dim_date[date_value] <= MaxDate
+    )
+RETURN
+    TotalRevenue / TotalMonths
