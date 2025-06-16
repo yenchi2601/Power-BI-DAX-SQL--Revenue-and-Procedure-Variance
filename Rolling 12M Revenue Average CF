@@ -1,0 +1,5 @@
+Rolling 12M Revenue Average CF = 
+VAR CurrentMonthRevenue = [TotalRevenue]
+VAR AvgRevenue = [Average Revenue Calc]
+RETURN 
+IF(CurrentMonthRevenue > AvgRevenue, "#9BC98D", "#E57373")
