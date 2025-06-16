@@ -1,0 +1,11 @@
+Monthly & Average Exam = 
+VAR MinDate = MIN(dim_date[date_value])
+VAR MaxDate = MAX(dim_date[date_value])
+VAR TotalMonths = DATEDIFF(MinDate, MaxDate, MONTH) + 1
+VAR TotalExam = 
+    CALCULATE(
+        DISTINCTCOUNT(fact_exam[procedure_number]), 
+        dim_date[date_value] >= MinDate && dim_date[date_value] <= MaxDate
+    )
+RETURN
+    TotalExam / TotalMonths
